@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include head.ejs %>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Enter OTP</h1>
+    <input type="text" id="otp">
+    <button class="btn btn-primary" onclick="verifyOtp()">Submit</button>
+    <script>
+        function verifyOtp() {
+            let _otp = document.getElementById('otp').value;
+            // console.log(_otp);
+            let email = atob(sessionStorage.getItem('x'));
+            $.ajax({
+                method: 'POST',
+                url: '/otp/verifyOtp',
+                data: {email: email, otp: _otp},
+                success: function (result) {
+                    // console.log(result);
+                    if (result.status == "success") {
+                        window.location.href = "/final";
+                        // alert('success 2')
+                    } else {
+                        alert('Error! Please try again')
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+</html>
